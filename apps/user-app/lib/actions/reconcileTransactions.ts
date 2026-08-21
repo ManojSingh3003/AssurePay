@@ -4,8 +4,8 @@ import { prisma } from "@repo/db";
 import Razorpay from "razorpay";
 
 const rzp = new Razorpay({
-   key_id: process.env.NEXT_PUBLIC_RZP_KEY_ID!,
-   key_secret: process.env.RZP_KEY_SECRET!,
+   key_id: process.env.NEXT_PUBLIC_RZP_KEY_ID || "dummy_key",
+   key_secret: process.env.RZP_KEY_SECRET || "dummy_secret",
 });
 
 export async function reconcileTransactions(userId?: number) {
