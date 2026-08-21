@@ -1,0 +1,24 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "globalEnv": ["JWT_SECRET", "NEXTAUTH_SECRET","GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET","GITHUB_ID","GITHUB_SECRET","RZP_KEY_ID","RZP_KEY_SECRET"  ],
+  "globalPassThroughEnv": ["npm_config_user_agent", "COREPACK_ENABLE_STRICT", "NEXT_IGNORE_NATIVE_DEPENDENCIES"],
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["NEXT_IGNORE_NATIVE_DEPENDENCIES"]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+name: AssurePay CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: rm -f package-lock.json && npm install
+      
+    - name: Generate Prisma Client
+      run: cd packages/db && npx prisma generate
+      
+    - name: Build and Lint (Turborepo)
+      run: npm run build
+      env:
+        COREPACK_ENABLE_STRICT: 0
+        # Next.js requires the DB URL during build time
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        NEXT_TELEMETRY_DISABLED: 1
+        

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: assurepay-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: assurepay
+    ports:
+      - "5432:5432"
+    volumes:
+      - assurepay-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+  redis:
+    image: redis:alpine
+    container_name: assurepay-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  assurepay-db-data:
