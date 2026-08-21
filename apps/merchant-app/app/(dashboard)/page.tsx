@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { prisma } from "@repo/db";
 import Email from "next-auth/providers/email";
 import QRCode from 'react-qr-code';
-import QRCode from 'react-qr-code';
 
 type Transaction = {
   id: number;
